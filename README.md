@@ -1,75 +1,68 @@
-# React + TypeScript + Vite
+# AstroForge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Description
 
-Currently, two official plugins are available:
+AstroForge is a Web3 GameFi idle resource management platform centered on sci-fi space mining and fleet operations. Built with passive asset-farming mechanics, the platform allows players to acquire and command specialized starships, deploying them across active asteroid fields to continuously harvest valuable minerals over time. Players can track fleet productivity in real time, monitor fuel consumption, and execute strategic upgrades to boost extraction efficiency, while refining raw deep-space minerals into tokenized assets within an integrated spaceport economy.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+| Category                    | Technologies Used                                                              |
+| :-------------------------- | :----------------------------------------------------------------------------- |
+| 🌐 **Programming Language** | `TypeScript`                                                                   |
+| 🧩 **Framework**            | `Tailwind CSS`                                                                 |
+| ⚛️ **Libraries**            | `ethers`, `React`, `React Router`, `Phaser`, `React Hot Toast`, `Lucide React` |
+| ⚡ **Tool**                 | `Vite`                                                                         |
 
-Note: This will impact Vite dev & build performances.
+---
 
-## Expanding the ESLint configuration
+## ⚙️ Setup Instructions
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. **Prerequisites**
+   - Node.js 24 or higher.
+   - Git installed on your system.
+   - PNPM 10 installed on your system (Optional).
+   - A deployed and running Smart Contract instance.
+   - A running backend API server.
+   - A Web3 crypto wallet installed in your browser ([Brave Wallet](https://brave.com/wallet) recommended).
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+2. **Clone the Repository**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/Fikri-Rouzan/astroforge.git
+cd astroforge
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. **Install Packages**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Using npm
+npm i
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Using pnpm
+pnpm i
+```
+
+4. **Configure Environment Variables**
+
+```bash
+cp .env.example .env
+```
+
+- Open the `.env` file and configure the following variables
+
+  ```env
+  VITE_API_URL="YOUR_API_URL"
+  VITE_CONTRACT_ADDRESS="YOUR_CONTRACT_ADDRESS"
+  ```
+
+5. **Run the Program**
+
+```bash
+# Using npm
+npm run dev
+
+# Using pnpm
+pnpm dev
 ```
