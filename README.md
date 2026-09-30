@@ -27,14 +27,32 @@ AstroForge is a Web3 GameFi idle resource management platform centered on sci-fi
    - A running backend API server.
    - A Web3 crypto wallet installed in your browser ([Brave Wallet](https://brave.com/wallet) recommended).
 
-2. **Clone the Repository**
+2. **Brave Wallet Local Network Setup**
+   - Open `brave://settings/wallet/networks` in your Brave browser address bar and click **Add**.
+   - Fill out the form with the following network details:
+     - **Chain ID:** `31337`
+     - **Chain Name:** `AstroForge Testnet`
+     - **Currency Name:** `Ethereum`
+     - **Currency Symbol:** `ETH`
+     - **Decimals:** `18`
+     - **RPC URL:** `http://127.0.0.1:8545`
+     - **Block Explorer URL:** `https://etherscan.io`
+   - Click **Submit** to save the new custom network.
+
+3. **Import Local Test Account to Brave Wallet**
+   - Open `brave://wallet/crypto/accounts` in your Brave browser.
+   - Click the **+** button, select **Import account**, and choose **Ethereum**.
+   - Paste one of the **Private Keys** generated when starting your local Ethereum node, provide an account name, and click **Import account**.
+   - **Note:** Always ensure your Brave Wallet active connection is set to **AstroForge Testnet** and your newly imported account before testing the app, otherwise RPC and connection errors will occur.
+
+4. **Clone the Repository**
 
 ```bash
 git clone https://github.com/Fikri-Rouzan/astroforge.git
 cd astroforge
 ```
 
-3. **Install Packages**
+5. **Install Packages**
 
 ```bash
 # Using npm
@@ -44,7 +62,7 @@ npm i
 pnpm i
 ```
 
-4. **Configure Environment Variables**
+6. **Configure Environment Variables**
 
 ```bash
 cp .env.example .env
@@ -57,7 +75,7 @@ cp .env.example .env
   VITE_CONTRACT_ADDRESS="YOUR_CONTRACT_ADDRESS"
   ```
 
-5. **Run the Program**
+7. **Run the Program**
 
 ```bash
 # Using npm
