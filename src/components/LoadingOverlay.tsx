@@ -1,5 +1,6 @@
 import React from "react";
-import { Orbit, ShieldCheck } from "lucide-react";
+import { motion } from "motion/react";
+import { ShieldCheck } from "lucide-react";
 
 export const LoadingOverlay: React.FC = () => {
   return (
@@ -8,27 +9,23 @@ export const LoadingOverlay: React.FC = () => {
       role="alert"
       aria-busy="true"
     >
-      <div className="relative flex justify-center items-center mb-6">
-        {/* Animated cosmic orbit background rings */}
-        <Orbit className="w-24 h-24 text-cosmic-primary animate-[spin_4s_linear_infinite] opacity-40 absolute" />
-        <Orbit className="w-16 h-16 text-cosmic-secondary animate-[spin_8s_linear_infinite_reverse] opacity-60 absolute" />
-
-        {/* Loading indicator */}
-        <div className="w-10 h-10 bg-cosmic-panel border border-cosmic-secondary/30 rounded-xl flex items-center justify-center shadow-neon-glow">
-          <ShieldCheck className="w-5 h-5 text-cyan-400 animate-pulse" />
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="flex flex-col items-center text-center max-w-xs"
+      >
+        <div className="w-12 h-12 bg-cosmic-panel border border-cosmic-border rounded-2xl flex items-center justify-center mb-4 shadow-sm">
+          <ShieldCheck className="w-6 h-6 text-cosmic-secondary animate-pulse" />
         </div>
-      </div>
 
-      {/* Loading message */}
-      <div className="text-center">
-        <h3 className="font-heading text-xs tracking-widest font-bold text-cosmic-text animate-pulse">
-          Synchronizing Command Link
+        <h3 className="font-heading text-sm font-bold text-cosmic-text tracking-wide">
+          Loading Control Center
         </h3>
-        <p className="font-mono text-[10px] text-gray-400 mt-2 tracking-wider">
-          Please wait while we establish a secure connection to your cosmic
-          terminal.
+        <p className="text-xs text-cosmic-muted mt-1.5 leading-relaxed font-medium">
+          Establishing telemetry connection to your orbital node.
         </p>
-      </div>
+      </motion.div>
     </div>
   );
 };

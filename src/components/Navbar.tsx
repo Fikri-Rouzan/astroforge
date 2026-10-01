@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useTheme } from "next-themes";
+import { motion } from "motion/react";
 import { useWeb3 } from "../hooks/useWeb3.js";
 import { MobileDrawer } from "../wrappers/MobileDrawer.js";
 import { Rocket, LogOut, Sun, Moon, Menu } from "lucide-react";
@@ -25,54 +26,59 @@ export const Navbar: React.FC = () => {
       <header className="border-b border-cosmic-border bg-cosmic-station/80 backdrop-blur-md sticky top-0 z-40 p-4 w-full">
         <nav
           className="max-w-7xl mx-auto flex justify-between items-center"
-          aria-label="Global tracking link"
+          aria-label="Main Navigation"
         >
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <Rocket className="w-6 h-6 text-cosmic-secondary animate-pulse" />
+          <div className="flex items-center gap-2.5">
+            <Rocket className="w-6 h-6 text-cosmic-secondary" />
             <span className="text-xl font-bold bg-linear-to-r from-cosmic-text to-cosmic-primary bg-clip-text text-transparent select-none font-heading">
               AstroForge
             </span>
           </div>
 
           <div className="hidden md:flex items-center gap-3">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setTheme(isDark ? "light" : "dark")}
               className="p-2 rounded-xl border border-cosmic-border hover:bg-cosmic-panel text-cosmic-text cursor-pointer"
-              aria-label="Toggle structural display theme"
+              aria-label="Toggle display theme"
             >
               {isDark ? (
                 <Sun className="w-5 h-5 text-cosmic-accent" />
               ) : (
-                <Moon className="w-5 h-5 text-indigo-950" />
+                <Moon className="w-5 h-5 text-indigo-900" />
               )}
-            </button>
+            </motion.button>
 
             {walletAddress && (
               <div className="flex items-center gap-2 bg-cosmic-panel pl-4 pr-2 py-1.5 rounded-xl border border-cosmic-border">
-                <span className="text-xs font-heading tracking-wider text-cosmic-text">
+                <span className="text-xs font-mono font-bold text-cosmic-text">
                   {formatAddress(walletAddress)}
                 </span>
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={disconnectWallet}
                   className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-500/10 cursor-pointer"
-                  title="Disconnect Node Session"
+                  title="Disconnect Wallet"
                 >
                   <LogOut className="w-4 h-4" />
-                </button>
+                </motion.button>
               </div>
             )}
           </div>
 
           {/* Mobile drawer trigger */}
           <div className="flex md:hidden items-center">
-            <button
+            <motion.button
+              whileTap={{ scale: 0.95 }}
               onClick={() => setIsSidebarOpen(true)}
               className="p-2 rounded-xl border border-cosmic-border text-cosmic-text cursor-pointer"
-              aria-label="Open system configuration drawer"
+              aria-label="Open navigation menu"
             >
               <Menu className="w-6 h-6" />
-            </button>
+            </motion.button>
           </div>
         </nav>
       </header>

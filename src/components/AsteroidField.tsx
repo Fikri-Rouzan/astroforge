@@ -43,15 +43,15 @@ export const AsteroidField: React.FC = () => {
 
   return (
     <div className="mt-8">
-      <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-lg font-bold font-heading text-cosmic-text flex items-center gap-2">
-          <Orbit className="w-5 h-5 text-cosmic-secondary" />
-          Orbital Sector Telemetry
-        </h3>
+      <div className="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-0">
+        <h2 className="text-base sm:text-lg font-bold font-heading text-cosmic-text flex items-center gap-2">
+          <Orbit className="w-5 h-5 text-cosmic-secondary shrink-0" />
+          <span>Orbital Telemetry Grid</span>
+        </h2>
         {playerProfile?.ships?.[0]?.status === "MINING" && (
-          <span className="flex items-center gap-1.5 text-xs font-mono font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-2.5 py-1 rounded-md animate-pulse">
-            <Shield className="w-3.5 h-3.5" />
-            Extracting Assets...
+          <span className="self-start sm:self-auto flex items-center gap-1.5 text-xs font-mono font-bold text-cyan-500 bg-cyan-500/10 border border-cyan-500/20 px-2.5 py-1 rounded-md whitespace-nowrap">
+            <Shield className="w-3.5 h-3.5 animate-pulse shrink-0" />
+            Extracting Assets
           </span>
         )}
       </div>

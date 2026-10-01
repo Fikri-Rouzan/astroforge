@@ -3,10 +3,11 @@
 @custom-variant dark (.dark &);
 
 :root {
-  --cosmic-bg: #f4f4f7;
+  --cosmic-bg: #f8fafc;
   --cosmic-station: #ffffff;
-  --cosmic-panel: #e2e8f0;
-  --cosmic-text: #1e1b4b;
+  --cosmic-panel: #f1f5f9;
+  --cosmic-text: #0f172a;
+  --cosmic-muted: #475569;
   --cosmic-border: #e2e8f0;
 }
 
@@ -14,8 +15,9 @@
   --cosmic-bg: #05050a;
   --cosmic-station: #0c0b18;
   --cosmic-panel: #141226;
-  --cosmic-text: #f1f5f9;
-  --cosmic-border: #141226;
+  --cosmic-text: #f8fafc;
+  --cosmic-muted: #94a3b8;
+  --cosmic-border: #1e1b4b;
 }
 
 @theme inline {
@@ -26,6 +28,7 @@
   --color-cosmic-station: var(--cosmic-station);
   --color-cosmic-panel: var(--cosmic-panel);
   --color-cosmic-text: var(--cosmic-text);
+  --color-cosmic-muted: var(--cosmic-muted);
   --color-cosmic-border: var(--cosmic-border);
 
   --color-cosmic-primary: #6366f1;
@@ -50,7 +53,7 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
 }
 
 /* Toast styles */

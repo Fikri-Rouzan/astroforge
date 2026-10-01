@@ -20,11 +20,11 @@ export const SpaceportPanel: React.FC = () => {
       if (contentType && contentType.includes("application/json")) {
         const errJson = await res.json();
         throw new Error(
-          errJson.error || "Planetary terminal communication breakdown.",
+          errJson.error || "Unable to communicate with the station server.",
         );
       }
       const errorText = await res.text();
-      throw new Error(errorText || "Quantum request rejected by refinery.");
+      throw new Error(errorText || "Server request rejected.");
     }
     return await res.json();
   };
@@ -32,7 +32,7 @@ export const SpaceportPanel: React.FC = () => {
   const handleRefuel = async () => {
     if (!authToken) return;
     setIsProcessing(true);
-    const loadToast = toast.loading("Refueling space station plasma cells...");
+    const loadToast = toast.loading("Refueling station reactors...");
     try {
       const res = await fetch(API_CONFIG.endpoints.spaceport.refuel, {
         method: "POST",
@@ -44,7 +44,7 @@ export const SpaceportPanel: React.FC = () => {
       });
       await handleServerResponse(res);
       await refreshProfile();
-      toast.success("Plasma fuel reserves fully restored to 100%!", {
+      toast.success("Fuel reserves completely restored to 100%!", {
         id: loadToast,
       });
     } catch (error) {
@@ -59,20 +59,18 @@ export const SpaceportPanel: React.FC = () => {
     const ethereum = (window as Window & { ethereum?: Eip1193Provider })
       .ethereum;
     if (!ethereum || !authToken) {
-      toast.error("Web3 control extension node not found.");
+      toast.error("Web3 wallet provider not found.");
       return;
     }
 
     const withdrawAmount = playerProfile.ironOre;
     if (withdrawAmount < 100) {
-      toast.error("Insufficient Iron Ore. Minimum 100 raw KG required.");
+      toast.error("Minimum 100 KG of Iron Ore required to smelt.");
       return;
     }
 
     setIsProcessing(true);
-    const loadToast = toast.loading(
-      "Smelting raw iron ore into $ORE tokens...",
-    );
+    const loadToast = toast.loading("Requesting withdrawal voucher...");
     try {
       const response = await fetch(API_CONFIG.endpoints.web3.withdrawal, {
         method: "POST",
@@ -88,7 +86,7 @@ export const SpaceportPanel: React.FC = () => {
 
       const { recipient, rawAmountInWei, nonce, expiry, signature } =
         voucherResult.data;
-      toast.loading("Broadcasting signature to the blockchain network...", {
+      toast.loading("Confirming transaction in wallet...", {
         id: loadToast,
       });
 
@@ -107,16 +105,15 @@ export const SpaceportPanel: React.FC = () => {
         expiry,
         signature,
       );
-      toast.loading("Awaiting cryptographic block confirmation...", {
+      toast.loading("Awaiting blockchain confirmation...", {
         id: loadToast,
       });
       await tx.wait();
 
       await refreshProfile();
-      toast.success(
-        `Success! Minted $ORE tokens into your decentralized ledger!`,
-        { id: loadToast },
-      );
+      toast.success("Minting complete! $ORE tokens added to your wallet.", {
+        id: loadToast,
+      });
     } catch (error: unknown) {
       const err = error as { code?: string; message?: string };
       const isUserReject =
@@ -134,10 +131,9 @@ export const SpaceportPanel: React.FC = () => {
           });
           await handleServerResponse(rollbackRes);
           await refreshProfile();
-          toast.error(
-            "Smelting canceled. Resources safely returned to cargo hold.",
-            { id: loadToast },
-          );
+          toast.error("Transaction canceled. Resources restored.", {
+            id: loadToast,
+          });
           return;
         } catch (rErr) {
           console.error(rErr);
@@ -145,7 +141,9 @@ export const SpaceportPanel: React.FC = () => {
       }
 
       const msg =
-        error instanceof Error ? error.message : "Web3 execution layer failed.";
+        error instanceof Error
+          ? error.message
+          : "Blockchain transaction failed.";
       toast.error(msg, { id: loadToast });
     } finally {
       setIsProcessing(false);
@@ -155,10 +153,10 @@ export const SpaceportPanel: React.FC = () => {
   return (
     <section className="mt-8">
       <div className="mb-4">
-        <h3 className="text-lg font-bold font-heading text-cosmic-text flex items-center gap-2">
+        <h2 className="text-lg font-bold font-heading text-cosmic-text flex items-center gap-2">
           <Wrench className="w-5 h-5 text-cosmic-accent" />
-          Spaceport Terminal Services
-        </h3>
+          Station Services
+        </h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

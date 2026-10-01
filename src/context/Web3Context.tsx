@@ -112,13 +112,13 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({
       .ethereum;
     if (!ethereum) {
       toast.error(
-        "Web3 extension node not found. Please install Web3 wallet extension.",
+        "No Web3 wallet found. Please install a Web3 wallet extension.",
       );
       return;
     }
 
     setIsLoading(true);
-    const loadingToast = toast.loading("Synchronizing cosmic terminal link...");
+    const loadingToast = toast.loading("Connecting to wallet...");
 
     try {
       const provider = new ethers.BrowserProvider(ethereum);
@@ -160,7 +160,7 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({
 
       await fetchPlayerProfile(accessToken, address);
 
-      toast.success("Command Link Secured. Welcome back, Commander!", {
+      toast.success("Wallet connected successfully!", {
         id: loadingToast,
       });
     } catch (error: unknown) {
@@ -169,10 +169,10 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({
         err.code === "ACTION_REJECTED" || err.message?.includes("rejected");
 
       const errorMessage = isUserReject
-        ? "Quantum signature request aborted by commander."
+        ? "Signature request was canceled."
         : error instanceof Error
           ? error.message
-          : "Unknown cryptographic error.";
+          : "Authentication failed.";
 
       console.error("[Web3Context Auth Error]:", error);
       toast.error(errorMessage, { id: loadingToast });
@@ -183,7 +183,7 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({
 
   const disconnectWallet = () => {
     logoutCleanup();
-    toast.success("Space station terminal session terminated.");
+    toast.success("Wallet disconnected.");
   };
 
   const refreshProfile = async () => {

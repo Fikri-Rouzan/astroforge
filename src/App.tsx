@@ -5,6 +5,7 @@ import { Navbar } from "./components/Navbar.js";
 import { LandingPage } from "./pages/LandingPage.js";
 import { ProtectedRoute } from "./components/ProtectedRoute.js";
 import { DashboardPage } from "./pages/DashboardPage.js";
+import { Footer } from "./components/Footer.js";
 
 export default function App() {
   const { walletAddress, playerProfile } = useWeb3();
@@ -49,6 +50,8 @@ export default function App() {
           {/* Route for handling 404 errors */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+
+        <Footer />
       </div>
     </BrowserRouter>
   );

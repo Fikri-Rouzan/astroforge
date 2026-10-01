@@ -18,7 +18,6 @@ export class MiningScene extends Phaser.Scene {
   create(): void {
     const { width, height } = this.scale;
 
-    // Starfield background
     for (let i = 0; i < 80; i++) {
       const starX = Phaser.Math.Between(0, width);
       const starY = Phaser.Math.Between(0, height);
@@ -48,39 +47,170 @@ export class MiningScene extends Phaser.Scene {
     this.asteroids = this.physics.add.group();
     this.createAsteroids();
 
-    // Player ship
     this.playerShip = this.add.graphics({ x: width * 0.75, y: height * 0.5 });
-    this.drawShip();
+    this.drawRocket();
 
     this.scale.on("resize", this.handleResize, this);
   }
 
-  private drawShip(): void {
+  private drawRocket(): void {
     if (!this.playerShip) return;
     this.playerShip.clear();
-    this.playerShip.lineStyle(2, 0x6366f1, 1);
+
     this.playerShip.fillStyle(0x0c0b18, 1);
+    this.playerShip.lineStyle(2, 0x6366f1, 1);
+
     this.playerShip.beginPath();
-    this.playerShip.moveTo(30, 0);
-    this.playerShip.lineTo(-20, -20);
-    this.playerShip.lineTo(-10, 0);
-    this.playerShip.lineTo(-20, 20);
+    this.playerShip.moveTo(-2, -10);
+    this.playerShip.lineTo(20, -22);
+    this.playerShip.lineTo(14, -10);
     this.playerShip.closePath();
     this.playerShip.strokePath();
     this.playerShip.fillPath();
 
-    this.playerShip.lineStyle(1, 0x06b6d4, 1);
-    this.playerShip.strokeCircle(0, 0, 5);
+    this.playerShip.beginPath();
+    this.playerShip.moveTo(-2, 10);
+    this.playerShip.lineTo(20, 22);
+    this.playerShip.lineTo(14, 10);
+    this.playerShip.closePath();
+    this.playerShip.strokePath();
+    this.playerShip.fillPath();
+
+    this.playerShip.beginPath();
+    this.playerShip.moveTo(-35, 0);
+    this.playerShip.lineTo(-12, -11);
+    this.playerShip.lineTo(18, -10);
+    this.playerShip.lineTo(18, 10);
+    this.playerShip.lineTo(-12, 11);
+    this.playerShip.closePath();
+    this.playerShip.strokePath();
+    this.playerShip.fillPath();
+
+    this.playerShip.lineStyle(1.5, 0x06b6d4, 1);
+    this.playerShip.fillStyle(0x141226, 1);
+    this.playerShip.beginPath();
+    this.playerShip.moveTo(18, -6);
+    this.playerShip.lineTo(24, -8);
+    this.playerShip.lineTo(24, 8);
+    this.playerShip.lineTo(18, 6);
+    this.playerShip.closePath();
+    this.playerShip.strokePath();
+    this.playerShip.fillPath();
+
+    this.playerShip.lineStyle(1.5, 0x06b6d4, 1);
+    this.playerShip.fillStyle(0x06b6d4, 0.25);
+    this.playerShip.beginPath();
+    this.playerShip.moveTo(-22, 0);
+    this.playerShip.lineTo(-10, -5);
+    this.playerShip.lineTo(-4, 0);
+    this.playerShip.lineTo(-10, 5);
+    this.playerShip.closePath();
+    this.playerShip.strokePath();
+    this.playerShip.fillPath();
+
+    this.playerShip.lineStyle(1, 0x6366f1, 0.6);
+    this.playerShip.lineBetween(-10, -11, -10, 11);
+    this.playerShip.lineBetween(6, -10, 6, 10);
   }
 
   private createAsteroids(): void {
     if (!this.asteroids) return;
     const { width, height } = this.scale;
 
+    this.asteroidGraphicsList = [];
+
     const asteroidPositions = [
-      { xRatio: 0.2, yRatio: 0.3, radius: 24 },
-      { xRatio: 0.15, yRatio: 0.7, radius: 18 },
-      { xRatio: 0.35, yRatio: 0.5, radius: 30 },
+      {
+        xRatio: 0.2,
+        yRatio: 0.25,
+        radius: 26,
+        craters: [
+          { x: -6, y: -5, r: 5 },
+          { x: 8, y: 6, r: 4 },
+        ],
+        veins: [
+          [
+            { x: -18, y: -8 },
+            { x: -8, y: 0 },
+            { x: 4, y: -6 },
+          ],
+          [
+            { x: 2, y: 8 },
+            { x: 14, y: 2 },
+          ],
+        ],
+      },
+      {
+        xRatio: 0.12,
+        yRatio: 0.65,
+        radius: 16,
+        craters: [{ x: 2, y: -2, r: 3 }],
+        veins: [
+          [
+            { x: -10, y: 4 },
+            { x: 0, y: -4 },
+            { x: 8, y: 2 },
+          ],
+        ],
+      },
+      {
+        xRatio: 0.35,
+        yRatio: 0.5,
+        radius: 36,
+        craters: [
+          { x: -10, y: 10, r: 8 },
+          { x: 12, y: -8, r: 6 },
+          { x: -5, y: -12, r: 4 },
+        ],
+        veins: [
+          [
+            { x: -24, y: -12 },
+            { x: -10, y: -4 },
+            { x: 8, y: -16 },
+          ],
+          [
+            { x: -8, y: 18 },
+            { x: 6, y: 12 },
+            { x: 20, y: 20 },
+          ],
+          [
+            { x: 10, y: -2 },
+            { x: 24, y: 6 },
+          ],
+        ],
+      },
+      {
+        xRatio: 0.28,
+        yRatio: 0.82,
+        radius: 22,
+        craters: [
+          { x: -5, y: 4, r: 4 },
+          { x: 6, y: -5, r: 3 },
+        ],
+        veins: [
+          [
+            { x: -14, y: -6 },
+            { x: -2, y: -10 },
+            { x: 10, y: -4 },
+          ],
+          [
+            { x: -12, y: 8 },
+            { x: 4, y: 12 },
+          ],
+        ],
+      },
+      {
+        xRatio: 0.42,
+        yRatio: 0.22,
+        radius: 14,
+        craters: [{ x: 1, y: 1, r: 3 }],
+        veins: [
+          [
+            { x: -8, y: -4 },
+            { x: 2, y: 6 },
+          ],
+        ],
+      },
     ];
 
     asteroidPositions.forEach((pos) => {
@@ -88,6 +218,7 @@ export class MiningScene extends Phaser.Scene {
         x: width * pos.xRatio,
         y: height * pos.yRatio,
       });
+
       targetAsteroid.lineStyle(2, 0x4b5563, 1);
       targetAsteroid.fillStyle(0x141226, 1);
       targetAsteroid.beginPath();
@@ -108,10 +239,27 @@ export class MiningScene extends Phaser.Scene {
       targetAsteroid.strokePath();
       targetAsteroid.fillPath();
 
+      pos.veins.forEach((vein) => {
+        targetAsteroid.lineStyle(1, 0x374151, 0.75);
+        targetAsteroid.beginPath();
+        targetAsteroid.moveTo(vein[0].x, vein[0].y);
+        for (let k = 1; k < vein.length; k++) {
+          targetAsteroid.lineTo(vein[k].x, vein[k].y);
+        }
+        targetAsteroid.strokePath();
+      });
+
+      pos.craters.forEach((crater) => {
+        targetAsteroid.lineStyle(1, 0x374151, 0.9);
+        targetAsteroid.fillStyle(0x0c0b18, 0.85);
+        targetAsteroid.fillCircle(crater.x, crater.y, crater.r);
+        targetAsteroid.strokeCircle(crater.x, crater.y, crater.r);
+      });
+
       this.asteroids?.add(targetAsteroid);
       const body = targetAsteroid.body as Phaser.Physics.Arcade.Body;
       body.setCircle(pos.radius, -pos.radius, -pos.radius);
-      body.setAngularVelocity(Phaser.Math.FloatBetween(-10, 10));
+      body.setAngularVelocity(Phaser.Math.FloatBetween(-12, 12));
 
       this.asteroidGraphicsList.push(targetAsteroid);
     });
@@ -124,10 +272,12 @@ export class MiningScene extends Phaser.Scene {
       this.playerShip.x = width * 0.75;
     }
 
-    if (this.asteroidGraphicsList.length === 3) {
-      this.asteroidGraphicsList[0].setPosition(width * 0.2, height * 0.3);
-      this.asteroidGraphicsList[1].setPosition(width * 0.15, height * 0.7);
+    if (this.asteroidGraphicsList.length === 5) {
+      this.asteroidGraphicsList[0].setPosition(width * 0.2, height * 0.25);
+      this.asteroidGraphicsList[1].setPosition(width * 0.12, height * 0.65);
       this.asteroidGraphicsList[2].setPosition(width * 0.35, height * 0.5);
+      this.asteroidGraphicsList[3].setPosition(width * 0.28, height * 0.82);
+      this.asteroidGraphicsList[4].setPosition(width * 0.42, height * 0.22);
     }
   }
 
@@ -140,34 +290,41 @@ export class MiningScene extends Phaser.Scene {
 
     this.playerShip.y =
       this.scale.height * 0.5 + Math.sin(this.time.now / 400) * 4;
+
+    this.drawRocket();
+
+    const flameLength = 8 + Math.sin(this.time.now / 50) * 4;
+    this.playerShip.fillStyle(0xf59e0b, 0.9);
+    this.playerShip.beginPath();
+    this.playerShip.moveTo(24, -5);
+    this.playerShip.lineTo(24 + flameLength, 0);
+    this.playerShip.lineTo(24, 5);
+    this.playerShip.closePath();
+    this.playerShip.fillPath();
+
+    this.playerShip.fillStyle(0x06b6d4, 1);
+    this.playerShip.beginPath();
+    this.playerShip.moveTo(24, -2.5);
+    this.playerShip.lineTo(24 + flameLength * 0.5, 0);
+    this.playerShip.lineTo(24, 2.5);
+    this.playerShip.closePath();
+    this.playerShip.fillPath();
+
     this.laserLines.clear();
 
     if (this.currentStatus === "MINING") {
+      const noseX = this.playerShip.x - 35;
+      const noseY = this.playerShip.y;
       const beamTargetX = this.scale.width * 0.35;
       const beamTargetY =
         this.scale.height * 0.5 + Math.sin(this.time.now / 200) * 10;
 
       this.laserLines.lineStyle(3, 0x06b6d4, 0.8);
-      this.laserLines.lineBetween(
-        this.playerShip.x,
-        this.playerShip.y - 5,
-        beamTargetX,
-        beamTargetY,
-      );
-      this.laserLines.lineBetween(
-        this.playerShip.x,
-        this.playerShip.y + 5,
-        beamTargetX,
-        beamTargetY,
-      );
+      this.laserLines.lineBetween(noseX, noseY - 2, beamTargetX, beamTargetY);
+      this.laserLines.lineBetween(noseX, noseY + 2, beamTargetX, beamTargetY);
 
       this.laserLines.lineStyle(1, 0xffffff, 1);
-      this.laserLines.lineBetween(
-        this.playerShip.x,
-        this.playerShip.y,
-        beamTargetX,
-        beamTargetY,
-      );
+      this.laserLines.lineBetween(noseX, noseY, beamTargetX, beamTargetY);
 
       this.particleEmitter.setPosition(beamTargetX, beamTargetY);
       if (!this.particleEmitter.emitting) {

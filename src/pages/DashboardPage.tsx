@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "motion/react";
 import { useWeb3 } from "../hooks/useWeb3.js";
 import { useLiveTelemetry } from "../hooks/useLiveTelemetry.js";
 import { ResourceCard } from "../wrappers/ResourceCard.js";
@@ -13,26 +14,50 @@ export const DashboardPage: React.FC = () => {
 
   if (!playerProfile) return null;
 
+  const containerVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, staggerChildren: 0.1 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+  };
+
   return (
-    <main className="max-w-7xl w-full mx-auto p-4 md:p-8 mt-4 flex-1 flex flex-col animate-[fadeIn_0.4s_ease-out]">
+    <motion.main
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+      className="max-w-7xl w-full mx-auto p-4 md:p-8 mt-2 flex-1 flex flex-col"
+    >
       {/* Header */}
-      <section className="mb-6" aria-labelledby="dashboard-title">
-        <h2
+      <motion.section
+        variants={itemVariants}
+        className="mb-6"
+        aria-labelledby="dashboard-title"
+      >
+        <h1
           id="dashboard-title"
-          className="text-xl md:text-2xl font-bold font-heading text-cosmic-secondary tracking-wide uppercase"
+          className="text-2xl md:text-3xl font-bold font-heading text-cosmic-text tracking-wide"
         >
-          Command Station Panel
-        </h2>
-        <p className="text-xs md:text-sm text-gray-400 mt-1">
-          Telemetry terminal operational. Synchronized with core automated
-          refinery node systems.
+          Control Center
+        </h1>
+        <p className="text-xs md:text-sm text-cosmic-muted mt-1 font-medium">
+          Real-time telemetry and resource metrics for active orbital mining
+          operations.
         </p>
-      </section>
+      </motion.section>
 
       {/* Resource cards */}
-      <section
+      <motion.section
+        variants={itemVariants}
         className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8"
-        aria-label="Financial Logs"
+        aria-label="Overview Metrics"
       >
         <ResourceCard
           label="Iron Ore Payload"
@@ -53,22 +78,25 @@ export const DashboardPage: React.FC = () => {
           icon={Gem}
           iconColorClass="text-cosmic-accent"
         />
-      </section>
+      </motion.section>
 
       {/* Canvas */}
-      <section aria-label="Orbital Canvas Telemetry">
+      <motion.section
+        variants={itemVariants}
+        aria-label="Orbital Canvas Telemetry"
+      >
         <AsteroidField />
-      </section>
+      </motion.section>
 
       {/* Ship hangar */}
-      <section aria-label="Ship Hangar Deck">
+      <motion.section variants={itemVariants} aria-label="Ship Hangar Deck">
         <HangarDashboard />
-      </section>
+      </motion.section>
 
       {/* Refinery terminals */}
-      <section aria-label="Refinery Terminals">
+      <motion.section variants={itemVariants} aria-label="Refinery Terminals">
         <SpaceportPanel />
-      </section>
-    </main>
+      </motion.section>
+    </motion.main>
   );
 };

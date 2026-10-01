@@ -19,13 +19,15 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
   return (
     <div className="p-5 rounded-2xl border border-cosmic-border bg-cosmic-station shadow-sm flex items-center justify-between">
       <div>
-        <span className="text-xs text-gray-400 font-heading tracking-wider block">
+        <span className="text-xs text-cosmic-muted font-heading tracking-wider block font-semibold">
           {label}
         </span>
-        <span className="text-2xl font-bold font-heading text-cosmic-text mt-1 block">
+        <span className="text-2xl font-bold font-heading text-cosmic-text mt-1.5 block">
           {displayValue}{" "}
           {unit && (
-            <span className="text-xs text-gray-400 font-mono">{unit}</span>
+            <span className="text-xs text-cosmic-muted font-mono ml-0.5">
+              {unit}
+            </span>
           )}
         </span>
       </div>
