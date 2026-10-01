@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import { Toaster } from "react-hot-toast";
 import { useWeb3 } from "./hooks/useWeb3.js";
+import { SpaceParticles } from "./components/SpaceParticles.js";
 import { Navbar } from "./components/Navbar.js";
 import { LandingPage } from "./pages/LandingPage.js";
 import { ProtectedRoute } from "./components/ProtectedRoute.js";
@@ -14,6 +15,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="bg-cosmic-bg text-cosmic-text min-h-screen font-body flex flex-col">
+        <SpaceParticles />
+
         <Toaster
           position="top-center"
           toastOptions={{
