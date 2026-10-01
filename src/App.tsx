@@ -1,39 +1,27 @@
-import { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import { Toaster } from "react-hot-toast";
+import { useWeb3 } from "./hooks/useWeb3.js";
 import { Navbar } from "./components/Navbar.js";
 import { LandingPage } from "./pages/LandingPage.js";
-import { DashboardPage } from "./pages/DashboardPage.js";
 import { ProtectedRoute } from "./components/ProtectedRoute.js";
-import { useWeb3 } from "./hooks/useWeb3.js";
+import { DashboardPage } from "./pages/DashboardPage.js";
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState<boolean>(true);
   const { walletAddress, playerProfile } = useWeb3();
   const isAuthenticated = !!walletAddress && !!playerProfile;
 
   return (
     <BrowserRouter>
-      <div
-        className={`${
-          darkMode
-            ? "dark bg-cosmic-void text-slate-100"
-            : "bg-cosmic-light-bg text-cosmic-light-text"
-        } min-h-screen transition-colors duration-300 font-body flex flex-col`}
-      >
-        {/* Dynamic toast feedback overlay container */}
+      <div className="bg-cosmic-bg text-cosmic-text min-h-screen font-body flex flex-col">
         <Toaster
           position="top-center"
           toastOptions={{
-            className: darkMode
-              ? "!bg-cosmic-station !text-slate-100 !border !border-cosmic-panel !font-body !text-sm"
-              : "!font-body !text-sm",
+            className: "cosmic-toast",
             duration: 4000,
           }}
         />
 
-        {/* Navigation bar */}
-        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Navbar />
 
         <Routes>
           {/* Public landing page */}

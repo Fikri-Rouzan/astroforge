@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Wrench } from "lucide-react";
-import { useWeb3 } from "../hooks/useWeb3.js";
-import { API_CONFIG } from "../config/api.config.js";
-import { toast } from "react-hot-toast";
 import { BrowserProvider, Contract, type Eip1193Provider } from "ethers";
+import { toast } from "react-hot-toast";
+import { API_CONFIG } from "../config/api.config.js";
+import AstroForgeAbi from "../config/AstroForgeToken.json";
+import { useWeb3 } from "../hooks/useWeb3.js";
 import { RefuelStation } from "../wrappers/RefuelStation.js";
 import { OreSmelter } from "../wrappers/OreSmelter.js";
-import AstroForgeAbi from "../config/AstroForgeToken.json";
+import { Wrench } from "lucide-react";
 
 export const SpaceportPanel: React.FC = () => {
   const { playerProfile, authToken, refreshProfile } = useWeb3();
@@ -155,13 +155,12 @@ export const SpaceportPanel: React.FC = () => {
   return (
     <section className="mt-8">
       <div className="mb-4">
-        <h3 className="text-lg font-bold font-heading text-slate-700 dark:text-slate-200 flex items-center gap-2">
+        <h3 className="text-lg font-bold font-heading text-cosmic-text flex items-center gap-2">
           <Wrench className="w-5 h-5 text-cosmic-accent" />
-          SPACEPORT TERMINAL SERVICES
+          Spaceport Terminal Services
         </h3>
       </div>
 
-      {/* Render children */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <RefuelStation
           playerProfile={playerProfile}

@@ -8,12 +8,13 @@ AstroForge is a Web3 GameFi idle resource management platform centered on sci-fi
 
 ## 🛠️ Tech Stack
 
-| Category                    | Technologies Used                                                              |
-| :-------------------------- | :----------------------------------------------------------------------------- |
-| 🌐 **Programming Language** | `TypeScript`                                                                   |
-| 🧩 **Framework**            | `Tailwind CSS`                                                                 |
-| ⚛️ **Libraries**            | `ethers`, `React`, `React Router`, `Phaser`, `React Hot Toast`, `Lucide React` |
-| ⚡ **Tool**                 | `Vite`                                                                         |
+| Category                    | Technologies Used                                                                                |
+| :-------------------------- | :----------------------------------------------------------------------------------------------- |
+| 🌐 **Programming Language** | `TypeScript`                                                                                     |
+| 🧩 **Framework**            | `Tailwind CSS`                                                                                   |
+| ⚛️ **Libraries**            | `ethers`, `React`, `React Router`, `next-themes`, `Phaser`,<br>`React Hot Toast`, `Lucide React` |
+| ⚡ **Tool**                 | `Vite`                                                                                           |
+| 🪙 **Crypto Wallet**        | `Brave Wallet`                                                                                   |
 
 ---
 

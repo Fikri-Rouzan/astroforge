@@ -7,6 +7,7 @@ export class MiningScene extends Phaser.Scene {
   private particleEmitter: Phaser.GameObjects.Particles.ParticleEmitter | null =
     null;
   private currentStatus: string = "IDLE";
+  private asteroidGraphicsList: Phaser.GameObjects.Graphics[] = [];
 
   constructor() {
     super({ key: "MiningScene" });
@@ -17,7 +18,8 @@ export class MiningScene extends Phaser.Scene {
   create(): void {
     const { width, height } = this.scale;
 
-    for (let i = 0; i < 60; i++) {
+    // Starfield background
+    for (let i = 0; i < 80; i++) {
       const starX = Phaser.Math.Between(0, width);
       const starY = Phaser.Math.Between(0, height);
       const starAlpha = Phaser.Math.FloatBetween(0.2, 0.8);
@@ -44,14 +46,48 @@ export class MiningScene extends Phaser.Scene {
     });
 
     this.asteroids = this.physics.add.group();
+    this.createAsteroids();
+
+    // Player ship
+    this.playerShip = this.add.graphics({ x: width * 0.75, y: height * 0.5 });
+    this.drawShip();
+
+    this.scale.on("resize", this.handleResize, this);
+  }
+
+  private drawShip(): void {
+    if (!this.playerShip) return;
+    this.playerShip.clear();
+    this.playerShip.lineStyle(2, 0x6366f1, 1);
+    this.playerShip.fillStyle(0x0c0b18, 1);
+    this.playerShip.beginPath();
+    this.playerShip.moveTo(30, 0);
+    this.playerShip.lineTo(-20, -20);
+    this.playerShip.lineTo(-10, 0);
+    this.playerShip.lineTo(-20, 20);
+    this.playerShip.closePath();
+    this.playerShip.strokePath();
+    this.playerShip.fillPath();
+
+    this.playerShip.lineStyle(1, 0x06b6d4, 1);
+    this.playerShip.strokeCircle(0, 0, 5);
+  }
+
+  private createAsteroids(): void {
+    if (!this.asteroids) return;
+    const { width, height } = this.scale;
+
     const asteroidPositions = [
-      { x: width * 0.2, y: height * 0.3, radius: 24 },
-      { x: width * 0.15, y: height * 0.7, radius: 18 },
-      { x: width * 0.35, y: height * 0.5, radius: 30 },
+      { xRatio: 0.2, yRatio: 0.3, radius: 24 },
+      { xRatio: 0.15, yRatio: 0.7, radius: 18 },
+      { xRatio: 0.35, yRatio: 0.5, radius: 30 },
     ];
 
     asteroidPositions.forEach((pos) => {
-      const targetAsteroid = this.add.graphics({ x: pos.x, y: pos.y });
+      const targetAsteroid = this.add.graphics({
+        x: width * pos.xRatio,
+        y: height * pos.yRatio,
+      });
       targetAsteroid.lineStyle(2, 0x4b5563, 1);
       targetAsteroid.fillStyle(0x141226, 1);
       targetAsteroid.beginPath();
@@ -76,22 +112,23 @@ export class MiningScene extends Phaser.Scene {
       const body = targetAsteroid.body as Phaser.Physics.Arcade.Body;
       body.setCircle(pos.radius, -pos.radius, -pos.radius);
       body.setAngularVelocity(Phaser.Math.FloatBetween(-10, 10));
+
+      this.asteroidGraphicsList.push(targetAsteroid);
     });
+  }
 
-    this.playerShip = this.add.graphics({ x: width * 0.75, y: height * 0.5 });
-    this.playerShip.lineStyle(2, 0x6366f1, 1);
-    this.playerShip.fillStyle(0x0c0b18, 1);
-    this.playerShip.beginPath();
-    this.playerShip.moveTo(30, 0);
-    this.playerShip.lineTo(-20, -20);
-    this.playerShip.lineTo(-10, 0);
-    this.playerShip.lineTo(-20, 20);
-    this.playerShip.closePath();
-    this.playerShip.strokePath();
-    this.playerShip.fillPath();
+  private handleResize(gameSize: Phaser.Structs.Size): void {
+    const { width, height } = gameSize;
 
-    this.playerShip.lineStyle(1, 0x06b6d4, 1);
-    this.playerShip.strokeCircle(0, 0, 5);
+    if (this.playerShip) {
+      this.playerShip.x = width * 0.75;
+    }
+
+    if (this.asteroidGraphicsList.length === 3) {
+      this.asteroidGraphicsList[0].setPosition(width * 0.2, height * 0.3);
+      this.asteroidGraphicsList[1].setPosition(width * 0.15, height * 0.7);
+      this.asteroidGraphicsList[2].setPosition(width * 0.35, height * 0.5);
+    }
   }
 
   public updateMiningStatus(status: string): void {

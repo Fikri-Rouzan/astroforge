@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Ship as ShipIcon } from "lucide-react";
+import { toast } from "react-hot-toast";
+import { API_CONFIG } from "../config/api.config.js";
 import { useWeb3 } from "../hooks/useWeb3.js";
 import { useLiveTelemetry } from "../hooks/useLiveTelemetry.js";
 import { ShipCard } from "../wrappers/ShipCard.js";
-import { API_CONFIG } from "../config/api.config.js";
-import { toast } from "react-hot-toast";
+import { Ship } from "lucide-react";
 
 export const HangarDashboard: React.FC = () => {
   const { playerProfile, authToken, refreshProfile } = useWeb3();
@@ -60,8 +60,7 @@ export const HangarDashboard: React.FC = () => {
       const msg =
         error instanceof Error ? error.message : "Execution system breakdown.";
       toast.error(msg, { id: loadToast });
-    }
-    {
+    } finally {
       setActionLoadingId(null);
     }
   };
@@ -69,9 +68,9 @@ export const HangarDashboard: React.FC = () => {
   return (
     <section className="mt-8">
       <div className="mb-4">
-        <h3 className="text-lg font-bold font-heading text-slate-700 dark:text-slate-200 flex items-center gap-2">
-          <ShipIcon className="w-5 h-5 text-cosmic-secondary" />
-          FLEET HANGAR BAY
+        <h3 className="text-lg font-bold font-heading text-cosmic-text flex items-center gap-2">
+          <Ship className="w-5 h-5 text-cosmic-secondary" />
+          Fleet Hangar Bay
         </h3>
       </div>
 

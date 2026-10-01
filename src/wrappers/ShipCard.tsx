@@ -1,6 +1,6 @@
 import React from "react";
-import { Pickaxe, Gauge, ArrowUpCircle } from "lucide-react";
 import type { Ship } from "../types/type";
+import { Pickaxe, Gauge, ArrowUpCircle } from "lucide-react";
 
 interface ShipCardProps {
   ship: Ship;
@@ -26,15 +26,15 @@ export const ShipCard: React.FC<ShipCardProps> = ({
   const isMining = ship.status === "MINING";
 
   return (
-    <div className="p-6 rounded-2xl border border-gray-200 bg-white dark:border-cosmic-panel dark:bg-cosmic-station shadow-sm flex flex-col justify-between hover:shadow-neon-glow transition-all duration-300">
+    <div className="p-6 rounded-2xl border border-cosmic-border bg-cosmic-station shadow-sm flex flex-col justify-between hover:shadow-neon-glow">
       <div>
         <div className="flex justify-between items-start mb-4">
           <div>
-            <h4 className="font-heading font-bold text-sm tracking-wide text-cosmic-light-text dark:text-white">
+            <h4 className="font-heading font-bold text-sm tracking-wide text-cosmic-text">
               {ship.shipName}
             </h4>
-            <span className="text-[10px] text-gray-400 dark:text-slate-500 font-mono">
-              REGID: 00{ship.id} // CONFIG
+            <span className="text-[10px] text-gray-400 font-mono">
+              Regid: 00{ship.id}
             </span>
           </div>
 
@@ -49,14 +49,14 @@ export const ShipCard: React.FC<ShipCardProps> = ({
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mb-6 bg-gray-50 dark:bg-cosmic-panel/40 p-4 rounded-xl border border-gray-100 dark:border-cosmic-panel/20">
+        <div className="grid grid-cols-2 gap-4 mb-6 bg-cosmic-panel p-4 rounded-xl border border-cosmic-border">
           <div className="flex items-center gap-2">
             <Pickaxe className="w-4 h-4 text-indigo-400" />
             <div>
               <span className="text-[10px] text-gray-400 block font-heading">
-                SPEED
+                Speed
               </span>
-              <span className="text-xs font-bold text-slate-700 dark:text-slate-300 font-heading">
+              <span className="text-xs font-bold text-cosmic-text font-heading">
                 {ship.miningRatePerSecond}{" "}
                 <span className="text-[9px] text-gray-400">/s</span>
               </span>
@@ -67,9 +67,9 @@ export const ShipCard: React.FC<ShipCardProps> = ({
             <Gauge className="w-4 h-4 text-cyan-400" />
             <div>
               <span className="text-[10px] text-gray-400 block font-heading">
-                CARGO HOLD
+                Cargo Hold
               </span>
-              <span className="text-xs font-bold text-slate-700 dark:text-slate-300 font-heading">
+              <span className="text-xs font-bold text-cosmic-text font-heading">
                 {isMining ? livePendingAmount.toFixed(1) : "0"} /{" "}
                 {ship.maxCargo}{" "}
                 <span className="text-[9px] text-gray-400">KG</span>
@@ -87,9 +87,9 @@ export const ShipCard: React.FC<ShipCardProps> = ({
                 void onLaunch(ship.id);
               }}
               disabled={actionLoadingId !== null}
-              className="w-full font-heading text-xs tracking-wider bg-cosmic-primary hover:bg-indigo-500 text-white py-3.5 px-4 rounded-xl font-bold hover:scale-[1.01] active:scale-[0.99] disabled:opacity-40 transition-all duration-200 cursor-pointer"
+              className="w-full font-heading text-xs tracking-wider bg-cosmic-primary hover:bg-indigo-500 text-white py-3.5 px-4 rounded-xl font-bold hover:scale-[1.01] active:scale-[0.99] disabled:opacity-40 cursor-pointer"
             >
-              {actionLoadingId === ship.id ? "LAUNCHING..." : "LAUNCH SHIP"}
+              {actionLoadingId === ship.id ? "Launching..." : "Launch Ship"}
             </button>
           ) : (
             <button
@@ -97,9 +97,9 @@ export const ShipCard: React.FC<ShipCardProps> = ({
                 void onClaim(ship.id);
               }}
               disabled={actionLoadingId !== null}
-              className="w-full font-heading text-xs tracking-wider bg-transparent border border-emerald-500/40 hover:bg-emerald-500/10 text-emerald-400 py-3.5 px-4 rounded-xl font-bold hover:scale-[1.01] active:scale-[0.99] disabled:opacity-40 transition-all duration-200 cursor-pointer"
+              className="w-full font-heading text-xs tracking-wider bg-transparent border border-emerald-500/40 hover:bg-emerald-500/10 text-emerald-400 py-3.5 px-4 rounded-xl font-bold hover:scale-[1.01] active:scale-[0.99] disabled:opacity-40 cursor-pointer"
             >
-              {actionLoadingId === ship.id ? "REFINING..." : "CLAIM CARGO"}
+              {actionLoadingId === ship.id ? "Refining..." : "Claim Cargo"}
             </button>
           )}
         </div>
@@ -109,13 +109,13 @@ export const ShipCard: React.FC<ShipCardProps> = ({
             void onUpgrade(ship.id);
           }}
           disabled={actionLoadingId !== null || isMining || !canAffordUpgrade}
-          className="flex-1 flex items-center justify-center gap-2 font-heading text-xs tracking-wider bg-transparent border border-gray-300 dark:border-cosmic-panel hover:bg-gray-100 dark:hover:bg-cosmic-panel/50 text-cosmic-accent py-3.5 px-4 rounded-xl font-bold disabled:opacity-30 disabled:pointer-events-none transition-all duration-200 cursor-pointer"
+          className="flex-1 flex items-center justify-center gap-2 font-heading text-xs tracking-wider bg-transparent border border-cosmic-border hover:bg-cosmic-panel text-cosmic-accent py-3.5 px-4 rounded-xl font-bold disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
         >
           <ArrowUpCircle className="w-4 h-4" />
           <span>
             {actionLoadingId === ship.id
-              ? "UPGRADING..."
-              : `UPGRADE (${upgradeCost})`}
+              ? "Upgrading..."
+              : `Upgrade (${upgradeCost})`}
           </span>
         </button>
       </div>

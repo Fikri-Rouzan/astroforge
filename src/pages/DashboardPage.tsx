@@ -1,11 +1,11 @@
 import React from "react";
-import { Coins, Flame, Gem } from "lucide-react";
+import { useWeb3 } from "../hooks/useWeb3.js";
+import { useLiveTelemetry } from "../hooks/useLiveTelemetry.js";
 import { ResourceCard } from "../wrappers/ResourceCard.js";
 import { AsteroidField } from "../components/AsteroidField.js";
 import { HangarDashboard } from "../components/HangarDashboard.js";
 import { SpaceportPanel } from "../components/SpaceportPanel.js";
-import { useWeb3 } from "../hooks/useWeb3.js";
-import { useLiveTelemetry } from "../hooks/useLiveTelemetry.js";
+import { Coins, Flame, Gem } from "lucide-react";
 
 export const DashboardPage: React.FC = () => {
   const { playerProfile } = useWeb3();
@@ -21,9 +21,9 @@ export const DashboardPage: React.FC = () => {
           id="dashboard-title"
           className="text-xl md:text-2xl font-bold font-heading text-cosmic-secondary tracking-wide uppercase"
         >
-          COMMAND STATION PANEL
+          Command Station Panel
         </h2>
-        <p className="text-xs md:text-sm text-gray-400 dark:text-slate-400 mt-1">
+        <p className="text-xs md:text-sm text-gray-400 mt-1">
           Telemetry terminal operational. Synchronized with core automated
           refinery node systems.
         </p>
@@ -35,20 +35,20 @@ export const DashboardPage: React.FC = () => {
         aria-label="Financial Logs"
       >
         <ResourceCard
-          label="IRON ORE Payload"
+          label="Iron Ore Payload"
           displayValue={totalLiveIronOre.toFixed(2)}
           unit="KG"
           icon={Coins}
           iconColorClass="text-cosmic-primary"
         />
         <ResourceCard
-          label="FUEL SUPPLY"
+          label="Fuel Supply"
           displayValue={`${playerProfile.fuel}%`}
           icon={Flame}
           iconColorClass="text-cosmic-secondary"
         />
         <ResourceCard
-          label="PLATINUM REVENUE"
+          label="Platinum Revenue"
           displayValue={playerProfile.platinum.toString()}
           icon={Gem}
           iconColorClass="text-cosmic-accent"

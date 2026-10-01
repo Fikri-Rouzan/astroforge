@@ -44,22 +44,21 @@ export const AsteroidField: React.FC = () => {
   return (
     <div className="mt-8">
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-lg font-bold font-heading text-slate-700 dark:text-slate-200 flex items-center gap-2">
+        <h3 className="text-lg font-bold font-heading text-cosmic-text flex items-center gap-2">
           <Orbit className="w-5 h-5 text-cosmic-secondary" />
-          ORBITAL SECTOR TELEMETRY
+          Orbital Sector Telemetry
         </h3>
         {playerProfile?.ships?.[0]?.status === "MINING" && (
           <span className="flex items-center gap-1.5 text-xs font-mono font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-2.5 py-1 rounded-md animate-pulse">
             <Shield className="w-3.5 h-3.5" />
-            EXTRACTING ASSETS...
+            Extracting Assets...
           </span>
         )}
       </div>
 
       <div
         id="astroforge-canvas-container"
-        className="w-full overflow-hidden rounded-2xl border border-gray-200 dark:border-cosmic-panel bg-cosmic-void shadow-inner flex justify-center items-center"
-        style={{ minHeight: "400px" }}
+        className="w-full h-100 relative overflow-hidden rounded-2xl border border-cosmic-border bg-cosmic-station shadow-inner flex justify-center items-center [&>canvas]:block [&>canvas]:w-full [&>canvas]:h-full"
       />
     </div>
   );

@@ -17,22 +17,20 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
   iconColorClass,
 }) => {
   return (
-    <div className="p-5 rounded-2xl border border-gray-200 dark:border-cosmic-panel bg-white dark:bg-cosmic-station shadow-sm flex items-center justify-between">
+    <div className="p-5 rounded-2xl border border-cosmic-border bg-cosmic-station shadow-sm flex items-center justify-between">
       <div>
-        <span className="text-xs text-gray-400 dark:text-slate-500 font-heading tracking-wider block uppercase">
+        <span className="text-xs text-gray-400 font-heading tracking-wider block">
           {label}
         </span>
-        <span className="text-2xl font-bold font-heading text-slate-700 dark:text-white mt-1 block">
+        <span className="text-2xl font-bold font-heading text-cosmic-text mt-1 block">
           {displayValue}{" "}
           {unit && (
-            <span className="text-xs text-gray-400 dark:text-slate-500 font-mono">
-              {unit}
-            </span>
+            <span className="text-xs text-gray-400 font-mono">{unit}</span>
           )}
         </span>
       </div>
       <div
-        className={`p-3 bg-gray-50 dark:bg-cosmic-panel/40 rounded-xl border border-gray-100 dark:border-cosmic-panel/20 ${iconColorClass}`}
+        className={`p-3 bg-cosmic-panel rounded-xl border border-cosmic-border ${iconColorClass}`}
       >
         <IconComponent className="w-6 h-6" />
       </div>
